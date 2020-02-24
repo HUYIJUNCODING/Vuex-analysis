@@ -37,7 +37,7 @@ export class Store {
      * strict: 严格模式,默认为false,如果启用严格模式,则只能允许提交(commit)的方式修改state,否则其他任何修改的方式都会报错
      */
     const { plugins = [], strict = false } = options;
-
+    debugger
     // store internal state
     //定义_committing属性用来判断严格模式下是否是用mutation修改state的(只有在commit方法中会将其状态变为true)
     this._committing = false;
@@ -89,7 +89,7 @@ export class Store {
 
     // initialize the store vm, which is responsible for the reactivity
     // (also registers _wrappedGetters as computed properties)
-    /* 通过vm重设store，新建Vue对象使用Vue内部的响应式实现注册state以及computed */
+    /* 通过vm重设store，新建Vue对象使用Vue内部的响应式机制实现注册state以及getter的响应化 */
     resetStoreVM(this, state);
 
     // apply plugins 调用插件
@@ -322,6 +322,9 @@ export class Store {
     this._committing = committing;
   }
 }
+
+
+
 
 /**
  * 执行订阅函数的注册,并暴露给外部当前订阅函数的注销方法
