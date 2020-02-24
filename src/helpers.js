@@ -1,13 +1,16 @@
 import { isObject } from './util'
 
 /**
+ * mapState 辅助函数,将Store实例中的 state 采用解构方法映射出一个计算属性注入vue的计算属性中
  * Reduce the code which written in Vue.js for getting the state.
  * @param {String} [namespace] - Module's namespace
  * @param {Object|Array} states # Object's item can be a function which accept state and getters for param, you can do something for state and getters in it.
  * @param {Object}
  */
-export const mapState = normalizeNamespace((namespace, states) => {
+export const mapState = normalizeNamespace(
+  (namespace, states) => {
   const res = {}
+  //states格式必须是array或者object,否则报错
   if (process.env.NODE_ENV !== 'production' && !isValidMap(states)) {
     console.error('[vuex] mapState: mapper parameter must be either an Array or an Object')
   }
@@ -34,6 +37,7 @@ export const mapState = normalizeNamespace((namespace, states) => {
 })
 
 /**
+ * mapMutations 辅助函数,将Store实例中的mutation函数映射注册进vue组件的methods中
  * Reduce the code which written in Vue.js for committing the mutation
  * @param {String} [namespace] - Module's namespace
  * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept anthor params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
@@ -64,6 +68,7 @@ export const mapMutations = normalizeNamespace((namespace, mutations) => {
 })
 
 /**
+ * mapGetters辅助函数,将Store实例中的getter映射注册进vue实例的computed中
  * Reduce the code which written in Vue.js for getting the getters
  * @param {String} [namespace] - Module's namespace
  * @param {Object|Array} getters
@@ -93,7 +98,7 @@ export const mapGetters = normalizeNamespace((namespace, getters) => {
   return res
 })
 
-/**
+/**mapActions辅助函数,原理和使用方法等同于mpaMutation,唯一差异是异步分发
  * Reduce the code which written in Vue.js for dispatch the action
  * @param {String} [namespace] - Module's namespace
  * @param {Object|Array} actions # Object's item can be a function which accept `dispatch` function as the first param, it can accept anthor params. You can dispatch action and do any other things in this function. specially, You need to pass anthor params from the mapped function.
