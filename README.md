@@ -91,6 +91,9 @@ export default {
 ```
 
 我们在 Vue 项目中 `import Vuex from 'vuex'` 导入的 Vuex 就是 index.js 导出的对象，哇哦，感觉已经开始有点进入状态了。看到了 `install` ，但这里不是老巢，我们去 store.js 中继续瞅瞅。
+
+#### install
+
 ```js
 <!--store.js-->
 import applyMixin from "./mixin";
@@ -123,6 +126,8 @@ store.js 就是 Vuex 的最核心地方了，这里就是司令部。install 方
    * 执行 applyMixin 中的 vuexInit 方法，将 Store 挂载至 Vue 应用的根组件和所有子组件实例上（提前剧透）。
 
 ```js
+
+#### vuexInit
 <!--mixin.js-->
 
 export default function (Vue) {
