@@ -125,9 +125,10 @@ store.js 就是 Vuex 的最核心地方了，这里就是司令部。install 方
    * 防止 Vuex 被重复安装。
    * 执行 applyMixin 中的 vuexInit 方法，将 Store 挂载至 Vue 应用的根组件和所有子组件实例上（提前剧透）。
 
+#### vuexInit
+
 ```js
 
-#### vuexInit
 <!--mixin.js-->
 
 export default function (Vue) {
