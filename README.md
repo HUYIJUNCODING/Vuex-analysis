@@ -36,7 +36,7 @@ Vue.use(Vuex) //安装插件，use方法内部会调用插件的install方法来
 export default new Vuex.Store({...})
 
 ```
-这段代码大家一定特别眼熟，vue 项目中只要使用 Vuex ，`Vue.use(Vuex)` 一定会使用到，这就是我们在Vue中安装的方式，很简单，一句代码就无痕安装，爽的飞起。但今天我们是分析源码，不是讨论如何在项目中使用Vuex，因此我们需要来瞅瞅其背后的代码实现。
+这段代码大家一定特别眼熟，vue 项目中只要使用 Vuex ，`Vue.use(Vuex)` 一定就会用到，这就是在 Vue 中安装的方式，很简单，一句代码就无痕安装，爽的飞起。但今天是源码场，so 就不讨论如何在项目中使用 Vuex 了，直接去瞅瞅源码的实现。
 > Vuex 的安装一定要在 new Store 之前，否则会报错，原因下面源码分析中会揭晓。
 
 ```js
@@ -70,7 +70,7 @@ export function initUse (Vue: GlobalAPI) {
   }
 }
 ```
-上面是 Vue 源码的 use.js 文件，我们在外部调用的use函数就是这里的这个 use 函数，该函数接收唯一 参数 plugin，最终会调用 plugin 内部定义的 install 函数执行安装。清楚 use 函数做的事之后，我们前往 Vuex 源码中去寻找 install 方法。
+上面是 Vue 源码的 use.js 文件，我们在外部调用的 use 函数就是这里的这个 use ，该函数接收唯一 参数 plugin，最终会调用 plugin 内部定义的 install 函数执行安装。清楚 use 函数做的事之后，我们前往 Vuex 源码中去寻找 install 方法。
 
 按照经验一般目录下的 index.js 文件都会是项目的入口，那在这里同样我们在 src下瞅瞅有没有 index.js，咦~，还真的有，点进去瞅瞅，一看，嘿嘿嘿~，如果都是地球人，应该都是下面这个样子的吧！
 ```js
@@ -118,7 +118,7 @@ export function install(_Vue) {
   applyMixin(Vue);
 }
 ```
-store.js 就是 Vuex 的最核心地方了，这里就是司令部。install 方法藏得比较深，在文件最底部，因为这会只分析 install 方法，我们就先将其余无关的代码去掉，避免不必要的干扰。
+store.js 就是 Vuex 的最核心地方了，这里就是司令部。install 方法藏得比较深，在文件最底部，因为这里只分析 install 方法，就先将其余无关的代码去掉，避免不必要的干扰。
 首先会看到 install 方法接收一个唯一参数 _Vue，这个参数就是 Vue 源码的use方法中传入的那个 Vue，然后一个 if 判断文件头部声明的 Vue 全局变量是否有值以及跟当前传入的 Vue参数引用地址是否相同来避免插件重复安装。
 如果是初次安装，则将传入的 _Vue 赋给全局变量 Vue（此做法一是防止重复安装，而是供Store类中使用，还记得文章开头抛出的那个问题吗?这里就找到答案了），然后调用 applyMixin 方法将 vuexInit 混入 混入进 Vue 的 beforeCreate(Vue2.0版本) 或 _init 方法(Vue1.0版本)。
 * 总结一下，install 方法做了两件事：
@@ -952,21 +952,5 @@ map辅助函数指的是 mapState、mapMutations、mapGetters、mapActions，使
 源码解析请移步 [map辅助函数](https://github.com/HUYIJUNCODING/Vuex-analysis/blob/master/src/helpers.js)
 
 ### 后记
-以上就是本文 Vuex 源码解析的所以内容了，从插件的安装到 Store 实例的创建，以及暴露给外部使用的方法，基本上将 Vuex 的所有核心内容都涉及到了。笔者在分析了 Vuex 源码之后仍然要写出来这篇文章的原因是想把自己阅读和分析源码时的主线流程分享出来，这样再结合源码去看可能会更加容易一点。
-
-
-> **原创不易，既然已经看到这里请高抬贵 star 小星星下，不胜感激！**
-
-
-
-
-
-
-
-
-
-
-
-
-
+以上就是本文 Vuex 源码解析的全部内容了，从插件的安装到 Store 实例的创建，以及暴露给外部使用的方法，基本上将 Vuex 的所有核心内容都涉及到了。笔者在分析了 Vuex 源码之后仍然要写出来这篇文章的原因是想把自己阅读和分析源码时的主线流程分享出来，这样再结合源码去看可能会更加容易一点。
 
