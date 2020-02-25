@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    {{$store.state.name}}
     Clicked: {{ $store.state.count }} times, count is {{ evenOrOdd }}.
     <button @click="increment">+</button>
     <button @click="decrement">-</button>
@@ -21,6 +20,9 @@ export default {
     'decrement',
     'incrementIfOdd',
     'incrementAsync'
-  ])
+  ]),
+  mounted() {
+    this.$store.state.count = 123
+  }
 }
 </script>

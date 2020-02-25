@@ -2,7 +2,7 @@ import { forEachValue } from '../util'
 
 // Base data struct for store's module, package with some attribute and method
 export default class Module {
-  //构造函数,new Module 实例的时候会自动执行一次(初始化)
+  //构造函数
   constructor (rawModule, runtime) {
     this.runtime = runtime
     // Store some children item 用来存放当前模块的子模块

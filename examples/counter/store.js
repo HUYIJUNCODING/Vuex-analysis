@@ -53,6 +53,7 @@ const getters = {
 // A Vuex instance is created by combining the state, mutations, actions,
 // and getters.
 export default new Vuex.Store({
+  strict: true,
   state,
   getters,
   actions,

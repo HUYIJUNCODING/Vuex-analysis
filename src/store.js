@@ -37,7 +37,6 @@ export class Store {
      * strict: 严格模式,默认为false,如果启用严格模式,则只能允许提交(commit)的方式修改state,否则其他任何修改的方式都会报错
      */
     const { plugins = [], strict = false } = options;
-    debugger
     // store internal state
     //定义_committing属性用来判断严格模式下是否是用mutation修改state的(只有在commit方法中会将其状态变为true)
     this._committing = false;
@@ -51,6 +50,7 @@ export class Store {
     this._wrappedGetters = Object.create(null);
     //收集module(利用递归的方式会将根module和后代module收集起来形成一个对象树)
     this._modules = new ModuleCollection(options);
+    console.log(this._modules)
     //根据命名空间存放module
     this._modulesNamespaceMap = Object.create(null);
     //存放订阅者
@@ -270,7 +270,7 @@ export class Store {
       );
     }
 
-    //
+    //调用register函数
     this._modules.register(path, rawModule);
     installModule(
       this,
@@ -279,12 +279,13 @@ export class Store {
       this._modules.get(path),
       options.preserveState
     );
+     //重新初始化 store
     // reset store to update getters...
     resetStoreVM(this, this.state);
   }
 
   /**
-   * 注销移除模块
+   * 注销移除动态模块
    */
   unregisterModule(path) {
     if (typeof path === "string") path = [path];

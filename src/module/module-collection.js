@@ -41,6 +41,7 @@ export default class ModuleCollection {
    //创建一个新的模块实例,会将当前要注册的原始模块对象用属性_rawModule接收,用_children存储子模块,state存储原始state
    // 以及添加一些操作模块的方法
     const newModule = new Module(rawModule, runtime)
+ 
     //如果 path.length = 0,这说明是根模块,将 newModule 添加给root属性存储
     if (path.length === 0) {
       this.root = newModule  //此时模块收集器中保存的形式: { root: { _rawModule: rawModule,...}
